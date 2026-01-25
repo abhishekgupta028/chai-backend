@@ -325,14 +325,14 @@ const updateUserCoverImage = asyncHandler(async(req, res) => {
     .json(new ApiResponse(200, user, "User cover image updated successfully"))
 })
 
-const userChannelProfile = asyncHandler(async(req, res => {
+const userChannelProfile = asyncHandler(async(req, res) => {
     const {username} = req.params;
 
     if(!username?.trim()){
         throw new ApiError(400, "Username is missing")
     }
-}))
-const channel = await User.aggregate([
+
+    const channel = await User.aggregate([
     {
         $match: {
             username: username.toLowerCase()
@@ -394,6 +394,7 @@ return res
 .json(
     new ApiResponse(200, channel[0], "User channel fetched successfully")
 )
+})
 
 export { registerUser, 
     loginUser,
